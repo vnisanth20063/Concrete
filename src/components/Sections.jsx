@@ -97,7 +97,7 @@ export function Contact({ t }) {
     const text = `Hello CONCRETE, I'm ${f.get('name')} (${f.get('phone')}). Project: ${f.get('type')}. ${f.get('msg') || ''}`;
     const url = `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
     setWa(url);
-    try { window.open(url, '_blank', 'noopener'); } catch {}
+    try { window.open(url, '_blank', 'noopener'); } catch { }
   };
   return (
     <section id="contact" className="sec sec-alt">
@@ -122,18 +122,134 @@ export function Contact({ t }) {
   );
 }
 
+
 export function Footer({ t }) {
+  const currentYear = new Date().getFullYear();
+
+  const exploreLinks = [
+    { label: "About Us", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Our Process", href: "#process" },
+    { label: "Projects", href: "#projects" },
+    { label: "Our Team", href: "#team" },
+    { label: "Contact", href: "#contact" },
+  ];
+
+  const serviceLinks = [
+    { label: "Villas & Homes", href: "#services" },
+    { label: "Apartments & Towers", href: "#services" },
+    { label: "Commercial Spaces", href: "#services" },
+    { label: "Interiors", href: "#services" },
+    { label: "Infrastructure", href: "#services" },
+    { label: "Renovation", href: "#services" },
+  ];
+
+  const contactLinks = [
+    {
+      label: "Phone",
+      href: "tel:+919876543210",
+    },
+    {
+      label: "Email",
+      href: "mailto:hello@concrete.example",
+    },
+    {
+      label: "Office Address",
+      href: "https://www.google.com/maps/search/?api=1&query=Anna+Salai+Chennai+Tamil+Nadu",
+    },
+    {
+      label: "WhatsApp",
+      href: "https://wa.me/919876543210",
+    },
+  ];
+
   return (
     <footer className="footer">
-      <div className="foot-big">CONCRETE</div>
-      <div className="foot-row">
-        <span>© {new Date().getFullYear()} CONCRETE. {t.footer.rights}</span>
-        <span className="foot-tag">{t.footer.tagline}</span>
-        <button onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}>{t.footer.top} ↑</button>
+      <div className="footer-container">
+
+        {/* Brand */}
+        <div className="footer-brand">
+          <a href="#top" className="footer-logo">
+            CONCRETE<span>.</span>
+          </a>
+
+          <p className="footer-tagline">
+            Building what endures.
+          </p>
+
+          <p className="footer-description">
+            Creating spaces, shaping futures, and building
+            structures that stand the test of time.
+          </p>
+        </div>
+
+        {/* Explore */}
+        <div className="footer-column">
+          <h3>Explore</h3>
+          <ul>
+            {exploreLinks.map((link) => (
+              <li key={link.label}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Services */}
+        <div className="footer-column">
+          <h3>Our Services</h3>
+          <ul>
+            {serviceLinks.map((link) => (
+              <li key={link.label}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div className="footer-column">
+          <h3>Get in Touch</h3>
+          <ul>
+            {contactLinks.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  target={link.label === "Office Address" || link.label === "WhatsApp" ? "_blank" : undefined}
+                  rel={link.label === "Office Address" || link.label === "WhatsApp" ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                  <span className="footer-arrow"> ↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="footer-bottom">
+        <p>
+          © {currentYear} CONCRETE. {t?.footer?.rights || "All rights reserved."}
+        </p>
+
+        <p className="footer-bottom-tagline">
+          Building what endures.
+        </p>
+
+        <button
+          className="footer-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          Back to top ↑
+        </button>
       </div>
     </footer>
   );
 }
+
+
 
 export function FloatingActions({ lang }) {
   return (
